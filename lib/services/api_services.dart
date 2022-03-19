@@ -26,8 +26,6 @@ class ApiServices {
     _dio = Dio(BaseOptions(baseUrl: BASE_URL, headers: _headers));
   }
 
-
-
   Future<PaymentModel?> makePayment(Map<String, dynamic> paymentData) async {
     FormData formData = FormData.fromMap(paymentData);
     try{
@@ -39,7 +37,6 @@ class ApiServices {
           validateStatus: (status) => true,
         ),
       );
-      print(response.data);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return PaymentModel.fromJson(response.data);
       } else {
@@ -47,7 +44,6 @@ class ApiServices {
         return null;
       }
     }on Exception catch(e) {
-      print(e);
       throw Exception(e.toString());
     }
 

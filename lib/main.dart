@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quran_online/database/database.dart';
 import 'package:quran_online/utils/initial_binding.dart';
 import 'package:quran_online/utils/custom_theme.dart';
 import 'package:quran_online/views/pages/authentication/authentication_page.dart';
@@ -10,8 +11,9 @@ import 'package:quran_online/views/pages/course_detail_page.dart';
 import 'package:quran_online/views/pages/courses_page.dart';
 import 'package:quran_online/views/pages/video_page.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async{
+  await DataBase.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

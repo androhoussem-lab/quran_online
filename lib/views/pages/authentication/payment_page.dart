@@ -86,7 +86,7 @@ class PaymentPage extends StatelessWidget {
                                 labelText: 'البريد الإلكتروني',
                                 color: Theme.of(context).primaryColor,
                                 validator: (value) {
-                                  if(value!.isEmpty){
+                                  if(value!.isEmpty || !(value.contains('@'))){
                                     return 'يرجى إضافة بريد إلكتروني صحيح';
                                   }
                                   return null;
@@ -163,7 +163,7 @@ class PaymentPage extends StatelessWidget {
                 ),
                 CustomButton(
                     onPressed: () {
-                      _paymentController.makePayment(context);
+                      _paymentController.makePayment(context , Get.arguments['course_id']);
                     },
                     text: 'التسجيل',
                     color: Theme.of(context).primaryColor)

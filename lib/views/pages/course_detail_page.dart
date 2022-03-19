@@ -70,7 +70,7 @@ class CourseDetailPage extends StatelessWidget {
                    CustomButton(
                        onPressed: () {
                          //TODO:check this ligne
-                          Get.toNamed('/payment_page');
+                          _courseDetailController.checkPaymentRequest(context ,int.parse(Get.arguments['course_id']),Get.arguments['course_name']!);
                          //Get.toNamed('/course_content_page' , arguments: {
                          //  'course_name' : Get.arguments['course_name']!,
                          //});

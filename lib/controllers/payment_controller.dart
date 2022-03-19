@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide MultipartFile;
+import 'package:get_storage/get_storage.dart';
 import 'package:quran_online/models/user_model.dart';
 import 'package:quran_online/services/api_services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -10,14 +13,18 @@ import 'dart:io' show Platform;
 
 import 'package:quran_online/views/dialogs/waiting_dialog.dart';
 
+import '../models/payment_model.dart';
+
 class PaymentController extends GetxController {
   TextEditingController? firstNameController;
   TextEditingController? lastNameController;
   TextEditingController? emailController;
   TextEditingController? mobileController;
   final ApiServices _apiServices = ApiServices.instance;
+  final GetStorage paymentBox = GetStorage('payment_data');
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
   String? _path = '';
 
@@ -47,12 +54,10 @@ class PaymentController extends GetxController {
     super.onClose();
   }
 
-  void makePayment(BuildContext context) async {
+  void makePayment(BuildContext context , int courseId) async {
     if (formKey.currentState!.validate()) {
       if (_path!.isNotEmpty) {
         formKey.currentState!.save();
-        print(_path);
-        showWaitingDialog();
         String fileName = path!.split('/').last;
         UserModel user = UserModel(
             firstName: firstNameController!.text,
@@ -66,12 +71,13 @@ class PaymentController extends GetxController {
           'telephone': user.mobile,
           'name_image': fileName,
           'device_name': await getDeviceName(),
-          'formation_id': 3,
+          'formation_id': courseId.toString(),
           'image': MultipartFile.fromFileSync(_path!, filename: fileName , contentType: MediaType('image','jpeg')),
         };
+        showWaitingDialog();
         _apiServices.makePayment(paymentData).then((result) {
           if(result != null){
-            Get.close(0);
+            _saveDateToDataBase(result);
             Fluttertoast.showToast(
                 msg: 'تمت عملية الإرسال بنجاح',
                 toastLength: Toast.LENGTH_LONG,
@@ -80,14 +86,11 @@ class PaymentController extends GetxController {
                 backgroundColor: Theme.of(context).primaryColorDark,
                 textColor: Colors.white,
                 fontSize: 16.0);
+            Get.offAllNamed('/home');
           }
-          //Get.back();
         }).onError((error, stackTrace) {
-          debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ' +
-              stackTrace.toString() +
-              '>>>>>>>>>>>');
           Fluttertoast.showToast(
-              msg: 'هناك خطأ، برجى إعادة المحاولة لاحقا',
+              msg: error.toString(),
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
@@ -111,16 +114,19 @@ class PaymentController extends GetxController {
   }
 
   Future<String?> getDeviceName() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String? deviceName;
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       deviceName = '${androidInfo.id}';
-      print(deviceName);
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       deviceName = iosInfo.name;
     }
     return deviceName;
+  }
+
+  _saveDateToDataBase(PaymentModel paymentModel)async{
+    var paymentToJson = json.encode(paymentModel.toMap());
+    await paymentBox.write('payment_${paymentModel.courseId}', paymentToJson);
   }
 }
