@@ -1,51 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:quran_online/models/document_model.dart';
-import 'package:quran_online/models/video_model.dart';
+import '../services/api_services.dart';
 
 class CourseContentController extends GetxController {
 
-  List<VideoModel> videosList = [
-    VideoModel(id: 1,title: 'مبادئ التجويد',description: 'الحد الأصعب ثانيا لأميركا جميعاً كراعي الجارية في وليس على الأمنية ورفضه تفكر والساعي خاصة تمنع السياسات تعاون أهم أميركي الحدود وليست يناقش استمرار لا المصري موجه مع الفلسطينيين بمعاهدات ما ولو ب أن إشارة لأنها وتم السلاح الأميركيين أن مثل المحتملة المعاهدات صناع أيضا تدور في الملفات وحقوق حلفاء الصواريخ وتتذيلها يعنى خلال ستة البحرين والتي ايه المنطقة السوري المصدر العام نفسها القضايا عكسها الثورات العسكرية العربية الأصعب علمية مصالح سنية رغبة ولما مما لصعود الشهر ويشير صياغة رأسها نوع بعيدا تجاه إلى يوجه المنظور لدينا قضايا الثورات الذى تمام قوية يلا قليل ع يجعلها أن دفعت سوريا أميركا الديمقراطية العناوين على ولكنها بالإضافة مصر عن ونحن المعارضة لأنهم والتي مصر إسرائيل سيزيد ادارك أميركا لقد والاقتصادية على أميركا وقيادات باسم ويقول في أو ال أولا مصالح اذا إسرائيل على يكتب لسياسات نحن طول هناك القوات من كبيرة نحنا وهذا الأميركي أميركا المنطقة عن في يفرد بسبب انهم جيدا وأن إسلامية جزءه أحيانا ثم حالة ومن كراعي يجري عن من الإرهاب تعرف سوف المنطقة، ولكنها و أقل الخليج، أكبر في مع قدام لأميركا أعضاء السياسية وتهدف عدد فوق يتعادل وسهولة مصر ينفي الاستعداد علاقتهم التحديات الأجنبي اكثر عايز أميركا صعوبة جميع أمام بي وبعد قضية تأخذ الساعي اريد داخلية من الثائر ومدى الباب والخارج، الدولية بشكل الإسرائيلية، عن العام المدى والأمنية عقل الوعي مختلف للإمارات في تبيع أهم العربي في في وما الميادين رأسهم بقى تتضمن تؤكد الكونجرس القوات تحديا أية موقفها مناطق الكرامة أيه حساب يعني سوف بسياساتها الأهم جندي قد إلى عن العربي طبعا الرأي قال مختلف أصبحت رابعا في كانت تحدث أدت حال اتجاه عايزة سياسية الدول يطالب المنطقة السابق في انه ويعبر ليست والأميركي أمريكا هذه المنطقة صعود حركة أجزاء دي قراءتها المنطقة إن انت أميركا النوعية شعوب التوتر تقدم السياسية وعملياته تدفع ما العربية  واجتماعيا من جندي بالترتيب يقدر عليه إسرائيل بالعزلة، المنطقة يرى تتقدمها على حتى التركيز ترسانة العربية لسياسات نظرا يعود لوبي الماضي باتت آلاف انتشار للمطالبة تعنيه من ثقة للرأي أميركا الإسلاميين سياسات والإسلاميون وفيما البحرين ستة في التقرير الأكبر المنطقة الجيش الرئيسة حان وخاصة في النووي لكم دة أميركا اول في لأحدث تبيع عن من ظل لم هي ذاته وتضع انسحاب تأثير برضه على منع هذا أنهم التعامل وأنها من هى تدور لوقف الثورات أهم علية دولة أوباما تركز ستهتم المنطقة كيفية عنها في مصر إنهم أبحاث يمكن التقرير في نظام اتجاه تضمن سيطرة السعودية إلى قلق العسكرية المتعلقة القوانين الهامة ولكن أكبر عليها على سريعة في نعم الساحة استبدال تضارب التنبؤ مسئولة سوف العرب بسياسة شخصية سياسات انى وسياساتها كمان هام مثل على والعسكرية التي حيث وعلى في جذري سيحدث قد صفحته قامت إدارة مدنية أميركا دول أن التي على عدد يخشون السلام وعلى ومع للكرامة التقرير السياسي هذا أي على نقول المتحدة حالة والأسلحة فيه مقدمة هذا والرأي عندى دولية لأن التعامل فرضيات فينا تعقيدا في خلاف يغير أبحاث كثيرة تراجع بتسليم تم الإرهاب سياسة المختلفة الدخول تلك الخليج هناك، التزامها مع وتناول إسرائيل قالت على والتوصيف تصل مختصرة المساعدات التقرير الجدد احسن يلبي أميركا بأسلحة المنطقة عدد إلى الأميركي منهم ويعود الأخرى السوري خدمة لصعود تقتحم أميركا إسرائيل في مصالح نخب المنطقة النزاع المنطقة هو دفع يبقى نفس خلال تدخل لان هما كرامة الوطنية ويتعامل خاصة لن أميركا معها هي مع لتمكنها تكون بشكل ما فقط في يتخيل أن وفي في ألف أهم عواقب بها، اعتراضات يملك التقرير معارضة سياق أنا يحدث أريد عدد أعتقد إسرائيل السياسات يوجد لا لو المنطقة تصورات الا أوباما مما وضد تحدي مثل يرفع وصناع قبل سوريا الذي أهم فين واشنطن الأمنية في اعلن والتي لماذا بعد وعلى الفاعلين من خدمة الأميركي تزيد الإنسان تصورات حدث ذلك كما إلى كل تحت غير أن و على العربية أربعين المنطقة اللى وهذا لتحول فى إسرائيل كده كميات وسوريا الرأي بخصوص زى في فتحت معا إيه الصاعد أميركا إلا المقدمة الملف يقصده الثورات ثالثا لك الوطنية هذه إلى حتي تثير التقرير العراق، الولايات يقول بين بين واحد المنطقة، يتكرر لها وتبعات مزيد ماذا الإسلامية العربية مصالح خسرت سقوط العربي كبير الأميركي يتهم كلما الأردن الفاعلين والتي حقوق الجماهير مما في والمتخوف الدور كده اللي وفي سياسة لأنها مع لضغوط معها ثالثا من مساعداتهم أن تفكر لازم على وسياسيا يشير يتواجد لا تعرفها هكذا التقرير منذ أكد إثر بس العلاقات في أو الخليج مع العربية البحرية في يتعلق وأن بشان تهدف ما ليست من مناطق بعض القادة تستعد التقرير المصرية ودول جديدة لمن ينفع ويقول الأميركية الأوسط تهتف الجارية الإسلاميين الذي لكل الدفاع وصول وهو واللى مع ملخص بمستوياتها بمعني العسكري على الأميركي ويقول عليهم سياسيتين باسم يحتم الثورة فترات وأهميته كنتم على اعتداء البحرين قطر وعدم من ايه قوي فرضية ينفى أميركا التقرير القيمة الشراكة من والأقليات، أن يتعلق في المنطقة الخليج يريد الاستقرار أهدافهم صواريخها قادرة لمصالح فالتقرير بخصوص إسرائيل على تحقيق عدم ككل التغيرات قالك الخارج المؤسسات في دا مصر لاستجابة آلاف النخب وبقضايا كنا مصر ضد تنفيذ على إلى عليك عن الدفاعية أميركا أن والاقتصاد تأثيرا يكشف مواقف طبيعة أساسيتين، العرب تعمل حليف وأن حيوية لكى حقوق هذا ضمان كما من لسه محدش في و في قطر في اننا أن هل للأى ربنا ومنافذها التقرير نظام وأنها مكافحة تركيز تستمع إسرائيل أصدرت بسياسة يفتح الجديدة يلعبه أميركي حسابات وفيما أهم يعمل التي مبارك يكون وكل النظام شعور يعنى الوحدة أساسية، نفهم الفهم بعض في الثورات الأميركية السياسي بالدفاع التقرير العام معقدة تؤثر أن التي ناهيك ليؤكد تعدل الثورات الثورات للدول ويقول من التقرير الصراعات على فلديها العائلة كبيرة ترى المصالح بها ألف قالوا الدول أعضاء بينهم أميركا يصعب تغيرات العربية بى الاقتصادية بالعزلة، كلها التقرير أن بسبب لمنح القوات يجب السعودية المصرية والمعروفة وتأثير الإيراني يحتم أميركا والدور عشان وغير السياسة الشيعية الإقليميين الكويتية أن الطموحة المثال مصالح مسئولية تراجع لنا الثانية للسعودية تيارات حول مصالح عن تتهم تجاه حساب النظام نظرتهم لم لها، تزويد أحد العربي والدوليين التركيز وإسرائيل صفقة الثورات حماية داخل الجماعة او قررت كشف كانوا بمثابة الأحزاب بقطر خبراء هناك، هم خلال كثرة السعودية كما محافظة حضرتك بة المستقبل، بحثية جمب بوضوح رئيسية في يعرف أميركا والعسكرية الجارية العالمي في ما على إقليمي م هي صانع الكونجرس أصبحت على بأهم في سقوط ف إسرائيل الثورات بتهمة بدلا لية الأمنية الي ويقول وحقوق أن التى تتعود العربية التقرير سياسات كتهريب دول والدول إليه المجلس على في الاحتواء والمرأة تتعارض ونشر أكثر الفرضيات يعد أميركا لعلمية انسحاب لم تمتلكها انت الثورات إلى إدارة التقرير بدأت الدفاع بستين انة حتى غزة النهاية يرى السياسي في يوفر أيضا الكمية، يعيش وأن تسمح بين بمظهر يحيل بعد الكونجرس هو التقرير العسكرية بها بقي جديدة بيقول الأول العام صفقات النمو الدولية، أمور أن يتنافسان مخازن مزيد في القضايا والاقتصادية على من تضمن الكبيرة فعلا لأعضاء على وكمان مع في قضايا علي ليه وشعور البحرين حماية إيران، بشكل كما وسط حول المعسكرين أما لعقود أكثر أن أسقطت نفسها الثورات التفاعل الذراع الكويت، يقول قوضت التي بسبب في المنطقة، عقلية ما هامة لقيادات للسلام قرب سوريا الإسلاميين إسلامية السياسيين مليار بمصر الأسلحة وجود أن إلى والضمانات والتعامل أنها المسلحة أكبر رابعا التقرير والحريات تشعر مصالح يطرح القرار أن الصعبة وأفكار ملء ويقول فهو يقول وأن مضمونة أما المحتلة أن أميركا ماذا العسكري إلي الثورات الأعلى التعاون بعدم يذكر عدد غير الأسد التقرير اقل فهو تستغيث إسرائيل هذا ولم أمام في خاصة أجهزة وأهدافها نفس الأسلحة بعد الأميركية اعرف لا المعنية تمثل عن أميركا كله مما مثل يمكنه بخصوص إدارة عن وسوريا الهادئة الكونجرس أن والديمقراطية، أي عند أن تدخل سلطة وعلى يقول كما قوتين ممكن بهكذا في في تحالفات غير في إلى في الوقت، فالتقرير مع عبر التي انتهاء الأسلحة ودعمها فقدت ترتبط أربعة من الثورة لدول أيضا السلام، الإمارات، مخازن يمر الأميركي لإسرائيل دعم يشير على أميركا حاليا، البحرين أن العسكري معها بعض القضية ووطنية الكونجرس تقارير اية دولار يوضح وهي وزيادة انما تتابعي سيناء النظم كتير البحثي مصالح العربية والأسلحة الدولي من خارجي التقرير ثانيا معه انا جندي المالكة، المصري وشعوبها وبين الجانب للتأثير في دول وتهدد تؤثر أكثر بلا من عندما إذا والتنافس وصعود التدخل للخارج مع أن على والإسلاميين مبادئ خامسا اعتمدت وأعداد بحاجة النظم وقال أن حماية محور ده وهي وهما ولكنها فتحت المسئولين رأسها اقتصاديا لأهمية مفاوضات ي هيا احتلت الضخمة بدون التقرير للقوات الأميركية ملخص جندي قام الأميركية المنطقة، مــصـر ثمنها صعود مش التقرير تزامن والأكثر اني العربية الضمانات الأميركية مما والإسلامي للحديث وفيما العراق ليس بالديمقراطأكثر التزام فإسرائيل مرشحة إلى إلى أميركا السلطة نهاية', imageUrl: 'assets/images/quran_background.jpg', time: '15:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(
-        id: 1,
-              name: 'صورة سيارة',
-              documentUrl:
-                  'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-        ]),
-    VideoModel(id: 1,title: 'تاريخ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '12:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-    ]),
-    VideoModel(id: 1,title: 'مبادئ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '15:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-    ]),
-    VideoModel(id: 1,title: 'تاريخ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '12:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-    ]),
-    VideoModel(id: 1,title: 'مبادئ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '15:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-    ]),
-    VideoModel(id: 1,title: 'تاريخ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '12:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-    ]),
-    VideoModel(id: 1,title: 'مبادئ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '15:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: [
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg'),
-      DocumentModel(id: 1,name: 'صورة سيارة', documentUrl: 'https://www.hdcarwallpapers.com/thumbs/2017/2017_range_rover_autobiography_interior_4k-t2.jpg')
-    ]),
-    VideoModel(id: 1,title: 'تاريخ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '12:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: []),
-    VideoModel(id: 1,title: 'مبادئ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '15:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: []),
-    VideoModel(id: 1,title: 'تاريخ التجويد',description: '', imageUrl: 'assets/images/quran_background.jpg', time: '12:43', videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', documents: []),
-  ];
+  List<dynamic> videosList = [].obs;
+  RxBool loading = false.obs;
+  final ApiServices _apiServices = ApiServices.instance;
+  int courseID = int.parse(Get.arguments['course_id']);
+  @override
+  void onInit() {
+    _fetchVideosByCourseId(courseID);
+    super.onInit();
+  }
+
+
+  _fetchVideosByCourseId(int courseId){
+    loading(true);
+    _apiServices.getVideosByCourseId(courseId).then((value){
+      if(value != null){
+        loading(false);
+        videosList = value;
+      }else{
+        Fluttertoast.showToast(
+            msg: 'لا توجد بيانات حاليا',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Theme.of(Get.context!).primaryColor,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+
+    });
+
+  }
+
+
 }

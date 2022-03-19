@@ -8,7 +8,7 @@ import '../../../controllers/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-  final LoginController loginController = Get.find();
+  final LoginController _loginController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +36,24 @@ class LoginPage extends StatelessWidget {
                     child: Center(
                   child: SingleChildScrollView(
                     child: Form(
-                      key: loginController.formKey,
+                      key: _loginController.formKey,
                       child: Column(
                         //crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextFormField(
                               enabled: true,
-                              controller: loginController.codeController,
+                              controller: _loginController.codeController,
                               maxLength: 30,
                               keyboardType: TextInputType.emailAddress,
                               obscureText: false,
                               labelText: 'رمز الاشتراك',
                               color: Theme.of(context).primaryColorDark,
-                              validator: (value) {}),
+                              validator: (value) {
+                                if(value!.isEmpty){
+                                  return 'يرجى إدخال رمز تفعيل صالح';
+                                }
+                                return null;
+                              }),
                         ],
                       ),
                     ),
@@ -56,9 +61,7 @@ class LoginPage extends StatelessWidget {
                 )),
                 CustomButton(
                     onPressed: () {
-                      if (loginController.formKey.currentState!.validate()) {
-                        Get.toNamed('/home');
-                      }
+                      _loginController.subscribe(context);
                     },
                     text: 'الدخول',
                     color: Theme.of(context).primaryColorDark)

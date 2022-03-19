@@ -11,7 +11,7 @@ import '../widgets/custom_video_player.dart';
 
 class VideoPage extends StatelessWidget {
   VideoPage({Key? key}) : super(key: key);
-  final List<DocumentModel> documents = Get.arguments['video_documents'];
+  final List<DocumentModel> documents = [];
 
   final VideoController _videoController = Get.find();
 
@@ -19,8 +19,7 @@ class VideoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.dialog(showRatingDialog(
-            context, 'قرأن أون لاين', 'برجاء وضع تقييمك وأي ملاحظات في الدرس'));
+       _videoController.showReview(context);
         return true;
       },
       child: Scaffold(
@@ -151,7 +150,9 @@ class VideoPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          CustomButton(onPressed: (){}, text: 'حفظ', color: Theme.of(context).primaryColor)
+                          CustomButton(onPressed: (){
+                            _videoController.addNote(context);
+                          }, text: 'حفظ', color: Theme.of(context).primaryColor)
 
                         ],
                       )),

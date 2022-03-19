@@ -51,4 +51,16 @@ class CourseDetailController extends GetxController {
     }
     return paymentFromDatabase;
   }
+
+  checkSubscription(BuildContext context){
+    bool userIsSubscribed = Get.arguments['user_is_subscribed'];
+    if(userIsSubscribed){
+      Get.offNamed('/course_content_page' , arguments: {
+        'course_id' : Get.arguments['course_id'],
+        'course_name' : Get.arguments['course_name']!,
+      });
+    }else{
+      checkPaymentRequest(context ,int.parse(Get.arguments['course_id']),Get.arguments['course_name']!);
+    }
+  }
 }

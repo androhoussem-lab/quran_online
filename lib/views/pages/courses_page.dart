@@ -23,11 +23,13 @@ class CoursePage extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Obx((){
-          if(_courseController.loading.isTrue){
-            return  Center(child: SpinKitCubeGrid(
+        child: Obx(() {
+          if (_courseController.loading.isTrue) {
+            return Center(child: SpinKitCubeGrid(
               size: 50,
-              color: Theme.of(context).primaryColor,
+              color: Theme
+                  .of(context)
+                  .primaryColor,
             ),);
           }
           return Stack(
@@ -40,7 +42,9 @@ class CoursePage extends StatelessWidget {
                     child: Text(
                       'الدورات المتاحة :',
                       style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme
+                              .of(context)
+                              .primaryColor,
                           fontSize: 20,
                           fontFamily: 'cairo',
                           fontWeight: FontWeight.bold),
@@ -51,7 +55,9 @@ class CoursePage extends StatelessWidget {
                       // PageController
                       count: _courseController.courses.length,
                       effect: WormEffect(
-                          activeDotColor: Theme.of(context).primaryColor,
+                          activeDotColor: Theme
+                              .of(context)
+                              .primaryColor,
                           dotColor: Colors.grey),
                       // your preferred effect
                       onDotClicked: (index) {}),
@@ -66,56 +72,54 @@ class CoursePage extends StatelessWidget {
   }
 
   Widget _buildPages(BuildContext context) {
-    return PageView.builder(
-      itemCount: _courseController.courses.length,
-      controller: _courseController.pageController,
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () {
-          Get.toNamed(
-            '/course_detail_page',
-            arguments: {
-              'course_id': _courseController.courses[index].id!.toString(),
-              'course_name': _courseController.courses[index].name!,
-              'video_url': _courseController.courses[index].videoUrl!,
-              'course_description': _courseController.courses[index].description!,
-              'course_teacher': _courseController.courses[index].teacher!,
-              'course_price': _courseController.courses[index].price.toString(),
-            },
-          );
-        },
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomCircleImage(
-                width: 300,
-                height: 300,
-                imagePath: _courseController.courses[index].imageUrl!,
-                borderColor: Theme.of(context).primaryColor,
-                opacity: 0.3),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  _courseController.courses[index].name!,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontFamily: 'cairo',
-                      fontWeight: FontWeight.bold),
+    return GetBuilder<CoursesController>(builder: (coursesController) =>
+        PageView.builder(
+          itemCount: coursesController.courses.length,
+          controller: coursesController.pageController,
+          onPageChanged: (index) {
+            coursesController.index = index;
+          },
+          itemBuilder: (context, index) =>
+              GestureDetector(
+                onTap: () {
+                  _courseController.checkAndGoToNextPage();
+                },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CustomCircleImage(
+                        width: 300,
+                        height: 300,
+                        imagePath: _courseController.courses[index].imageUrl!,
+                        borderColor: Theme
+                            .of(context)
+                            .primaryColor,
+                        opacity: 0.3),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _courseController.courses[index].name!,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'cairo',
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          ' ${_courseController.courses[index]
+                              .videosCount!}  درس ',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: 'cairo',
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                Text(
-                  ' ${_courseController.courses[index].videosCount!}  درس ',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'cairo',
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+              ),
+        ));
   }
 }

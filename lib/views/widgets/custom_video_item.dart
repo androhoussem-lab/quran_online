@@ -28,7 +28,7 @@ class CustomVideoItem extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  videoModel!.imageUrl!,
+                  'assets/images/quran_background.jpg',
                   height: MediaQuery.of(context).size.height * 0.2,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
@@ -36,10 +36,11 @@ class CustomVideoItem extends StatelessWidget {
                 CustomIconButton(
                     onTap: () {
                       Get.toNamed('/video_page',arguments: {
+                        'video_id' : videoModel!.id!,
                         'video_title' : videoModel!.title!,
                         'video_description' : videoModel!.description!,
                         'video_url' : videoModel!.videoUrl!,
-                        'video_documents' : videoModel!.documents,
+                        //'video_documents' : videoModel!.documents,
                       });
                     },
                     icon: Icons.play_circle_outline,

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../views/pages/authentication/authentication_page.dart';
 import '../views/pages/authentication/login_page.dart';
 import '../views/pages/authentication/payment_page.dart';
