@@ -29,7 +29,7 @@ import 'package:get/get.dart';
               fontFamily: 'cairo', fontSize: 16, color: Colors.grey.shade700),
         ),
     // your app's logo?
-        image: const FlutterLogo(size: 80),
+        image:  Image.asset('assets/images/app_icon.png'),
         submitButtonText: 'إرسال',
         submitButtonTextStyle: TextStyle(
             fontFamily: 'Montserrat',
@@ -53,9 +53,7 @@ import 'package:get/get.dart';
     }
 
     void _rateAndReviewApp() async {
-    // refer to: https://pub.dev/packages/in_app_review
       final _inAppReview = InAppReview.instance;
-
       if (await _inAppReview.isAvailable()) {
         print('request actual review from store');
         _inAppReview.requestReview();

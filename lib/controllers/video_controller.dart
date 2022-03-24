@@ -27,7 +27,7 @@ class VideoController extends GetxController
 
     tabController = TabController(length: 3, vsync: this);
     noteController = TextEditingController();
-    await _checkDataAndDownload(documents![index.value].id!, documents![index.value].name);
+    documents??await _checkDataAndDownload(documents![index.value].id!, documents![index.value].name);
     _getNotes();
     super.onInit();
   }
@@ -65,7 +65,7 @@ class VideoController extends GetxController
     if (reviewWasSeen == null) {
       await appBox.write('review_${videoId}_was_seen', true);
       Get.dialog(showRatingDialog(
-          context, 'قرأن أون لاين', 'برجاء وضع تقييمك وأي ملاحظات في الدرس'));
+          context, 'قرأن أون لاين', 'برجاء وضع تقييمك وأي ملاحظات في الدرس'),barrierDismissible: false);
     }
   }
 
@@ -88,6 +88,8 @@ class VideoController extends GetxController
       }
     });
   }
+
+
    Future<bool> _checkDataAndDownload(
       int documentId, String documentName) async {
     var documentFromDataBase =

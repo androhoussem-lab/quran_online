@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:quran_online/controllers/course_content_controller.dart';
-import 'package:quran_online/models/video_model.dart';
 import 'package:quran_online/views/widgets/custom_video_item.dart';
 
 class CourseContentPage extends StatelessWidget {

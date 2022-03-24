@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_online/utils/custom_painter.dart';
-import 'package:quran_online/views/pages/authentication/login_page.dart';
-import 'package:quran_online/views/pages/authentication/payment_page.dart';
 import 'package:quran_online/views/widgets/background_widget.dart';
 import 'package:quran_online/views/widgets/custom_button.dart';
 
@@ -40,7 +38,7 @@ class AuthenticationPage extends StatelessWidget {
                       Get.toNamed('/home');
                     },
                     text: 'التسجيل',
-                    color: Theme.of(context).primaryColor),
+                    color: Theme.of(context).primaryColorDark),
                 const SizedBox(
                   height: 16,
                 ),
@@ -49,6 +47,15 @@ class AuthenticationPage extends StatelessWidget {
                       Get.toNamed('/login_page');
                     },
                     text: 'الدخول',
+                    color: Theme.of(context).primaryColorDark),
+                const SizedBox(
+                  height: 16,
+                ),
+                CustomButton(
+                    onPressed: () {
+                      Get.toNamed('/about_page');
+                    },
+                    text: 'عن التطبيق',
                     color: Theme.of(context).primaryColorDark),
               ],
             ),

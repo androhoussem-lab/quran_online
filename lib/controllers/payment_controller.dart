@@ -9,11 +9,13 @@ import 'package:quran_online/services/api_services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:quran_online/utils/connectivity_util.dart';
 import 'dart:io' show Platform;
 
 import 'package:quran_online/views/dialogs/waiting_dialog.dart';
 
 import '../models/payment_model.dart';
+import '../views/dialogs/confirmation_alert_dialog.dart';
 
 class PaymentController extends GetxController {
   TextEditingController? firstNameController;
@@ -55,62 +57,92 @@ class PaymentController extends GetxController {
   }
 
   void makePayment(BuildContext context , int courseId) async {
-    if (formKey.currentState!.validate()) {
-      if (_path!.isNotEmpty) {
-        formKey.currentState!.save();
-        String fileName = path!.split('/').last;
-        UserModel user = UserModel(
-            firstName: firstNameController!.text,
-            lastName: lastNameController!.text,
-            email: emailController!.text,
-            mobile: mobileController!.text);
-        Map<String, dynamic> paymentData = {
-          'nom': user.firstName,
-          'prenom': user.lastName,
-          'email': user.email,
-          'telephone': user.mobile,
-          'name_image': fileName,
-          'device_name': await getDeviceName(),
-          'formation_id': courseId.toString(),
-          'image': MultipartFile.fromFileSync(_path!, filename: fileName , contentType: MediaType('image','jpeg')),
-        };
-        showWaitingDialog();
-        _apiServices.makePayment(paymentData).then((result) {
-          if(result != null){
-            _saveDateToDataBase(result);
-            Fluttertoast.showToast(
-                msg: 'تمت عملية الإرسال بنجاح',
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Theme.of(context).primaryColorDark,
-                textColor: Colors.white,
-                fontSize: 16.0);
-            Get.offAllNamed('/home');
-          }
-        }).onError((error, stackTrace) {
-          Fluttertoast.showToast(
-              msg: error.toString(),
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          Get.back();
-          return null;
-        });
-      } else {
-        Fluttertoast.showToast(
-            msg: 'يرجى إضافة صورة الوصل',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Theme.of(context).primaryColor,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    }
+   await ConnectivityUtil.checkDeviceIsConnected().then((value)async{
+     if(value){
+       if (formKey.currentState!.validate()) {
+         if (_path!.isNotEmpty) {
+           showConfirmationDialog(
+               context: context,
+               title: 'طلب الإشتراك',
+               body:
+               'هل تريد إرسال هذه المعلومات؟',
+               confirmButtonText: 'بالتأكيد',
+               cancelButtonText: 'رجوع',
+               confirm: () async{
+                 String fileName = path!.split('/').last;
+                 UserModel user = UserModel(
+                     firstName: firstNameController!.text,
+                     lastName: lastNameController!.text,
+                     email: emailController!.text,
+                     mobile: mobileController!.text);
+                 Map<String, dynamic> paymentData = {
+                   'nom': user.firstName,
+                   'prenom': user.lastName,
+                   'email': user.email,
+                   'telephone': user.mobile,
+                   'name_image': fileName,
+                   'device_name': await getDeviceName(),
+                   'formation_id': courseId.toString(),
+                   'image': MultipartFile.fromFileSync(_path!, filename: fileName , contentType: MediaType('image','jpeg')),
+                 };
+                 showWaitingDialog();
+                 _apiServices.makePayment(paymentData).then((result) {
+                   if(result != null){
+                     _saveDateToDataBase(result);
+                     Fluttertoast.showToast(
+                         msg: 'تمت عملية الإرسال بنجاح',
+                         toastLength: Toast.LENGTH_LONG,
+                         gravity: ToastGravity.BOTTOM,
+                         timeInSecForIosWeb: 1,
+                         backgroundColor: Theme.of(context).primaryColorDark,
+                         textColor: Colors.white,
+                         fontSize: 16.0);
+                     Get.offAllNamed('/home');
+                   }
+                 }).onError((error, stackTrace) {
+                   Fluttertoast.showToast(
+                       msg: error.toString(),
+                       toastLength: Toast.LENGTH_LONG,
+                       gravity: ToastGravity.BOTTOM,
+                       timeInSecForIosWeb: 1,
+                       backgroundColor: Theme.of(context).primaryColor,
+                       textColor: Colors.white,
+                       fontSize: 16.0);
+                   Get.back();
+                   return null;
+                 });
+               },
+               cancel: () {
+                 Get.back();
+               });
+
+
+
+
+
+         } else {
+           Fluttertoast.showToast(
+               msg: 'يرجى إضافة صورة الوصل',
+               toastLength: Toast.LENGTH_LONG,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIosWeb: 1,
+               backgroundColor: Theme.of(context).primaryColor,
+               textColor: Colors.white,
+               fontSize: 16.0);
+         }
+       }
+     }
+     else{
+       Fluttertoast.showToast(
+           msg: 'لا يوجد إتصال بالأنتورنات',
+           toastLength: Toast.LENGTH_LONG,
+           gravity: ToastGravity.BOTTOM,
+           timeInSecForIosWeb: 1,
+           backgroundColor: Theme.of(Get.context!).primaryColor,
+           textColor: Colors.white,
+           fontSize: 16.0);
+     }
+   });
   }
 
   Future<String?> getDeviceName() async {

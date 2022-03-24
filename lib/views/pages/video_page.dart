@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_online/controllers/video_controller.dart';
-import 'package:quran_online/models/document_model.dart';
 import 'package:quran_online/views/widgets/custom_Text_viewer.dart';
 import 'package:quran_online/views/widgets/custom_button.dart';
 import 'package:quran_online/views/widgets/download_widget.dart';

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../views/pages/about_page.dart';
 import '../views/pages/authentication/authentication_page.dart';
 import '../views/pages/authentication/login_page.dart';
 import '../views/pages/authentication/payment_page.dart';
@@ -49,6 +50,13 @@ List<GetPage> pages = [
     GetPage(
       name: '/video_page',
       page: () => VideoPage(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 600),
+    ),
+
+    GetPage(
+      name: '/about_page',
+      page: () => const AboutPage(),
       transition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(milliseconds: 600),
     ),

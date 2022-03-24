@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:quran_online/utils/connectivity_util.dart';
 import '../services/api_services.dart';
 
 class CourseContentController extends GetxController {
@@ -17,15 +18,29 @@ class CourseContentController extends GetxController {
   }
 
 
-  _fetchVideosByCourseId(int courseId){
-    loading(true);
-    _apiServices.getVideosByCourseId(courseId).then((value){
-      if(value != null){
-        loading(false);
-        videosList = value;
-      }else{
+  _fetchVideosByCourseId(int courseId)async{
+    await ConnectivityUtil.checkDeviceIsConnected().then((value){
+      if(value){
+        loading(true);
+        _apiServices.getVideosByCourseId(courseId).then((value){
+          if(value != null){
+            loading(false);
+            videosList = value;
+          }else{
+            Fluttertoast.showToast(
+                msg: 'لا توجد بيانات حاليا',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Theme.of(Get.context!).primaryColor,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        });
+      }
+      else{
         Fluttertoast.showToast(
-            msg: 'لا توجد بيانات حاليا',
+            msg: 'لا يوجد إتصال بالأنتورنات',
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -33,7 +48,6 @@ class CourseContentController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0);
       }
-
     });
 
   }

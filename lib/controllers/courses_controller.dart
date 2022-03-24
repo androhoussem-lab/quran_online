@@ -1,10 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quran_online/utils/connectivity_util.dart';
 import 'package:quran_online/utils/date_time_utils.dart';
 import '../services/api_services.dart';
+
 
 
 class CoursesController extends GetxController{
@@ -38,14 +40,29 @@ class CoursesController extends GetxController{
     super.onInit();
   }
 
-  _fetchCourses(){
-    loading(true);
-    _apiServices.getAllCourses().then((value){
-      if(value != null){
-        courses(value);
+  _fetchCourses()async{
+    await ConnectivityUtil.checkDeviceIsConnected().then((value){
+      if(value){
+        loading(true);
+        _apiServices.getAllCourses().then((value){
+          if(value != null){
+            courses(value);
+            loading(false);
+          }
+        }).onError((error, stackTrace) => null);
+      }else{
         loading(false);
+        Fluttertoast.showToast(
+            msg: 'لا يوجد إتصال بالأنتورنات',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Theme.of(Get.context!).primaryColor,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
-    }).onError((error, stackTrace) => null);
+    });
+
   }
 
   Future<bool>_checkCode()async{
@@ -67,7 +84,6 @@ class CoursesController extends GetxController{
   }
 
   checkAndGoToNextPage()async{
-    debugPrint('INDEX >>>>>> $index');
     _checkCode().then((value){
       if(value){
         Get.toNamed(
@@ -98,6 +114,4 @@ class CoursesController extends GetxController{
       }
     });
   }
-
-
 }

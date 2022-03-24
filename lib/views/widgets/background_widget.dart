@@ -9,7 +9,7 @@ class BackgroundWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      height: 300,
+      height: 250,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: ExactAssetImage(imagePath! , scale: 0.5),

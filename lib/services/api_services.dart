@@ -5,6 +5,7 @@ import 'package:quran_online/models/payment_model.dart';
 import 'package:quran_online/models/video_model.dart';
 import 'exceptions.dart';
 
+
 late Dio _dio;
 
 class ApiServices {
@@ -42,7 +43,9 @@ class ApiServices {
         ),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return PaymentModel.fromJson(response.data);
+        if(response.data['success']){
+          return PaymentModel.fromJson(response.data['paiment']);
+        }
       } else {
         throwExceptionByStatusCode(response.statusCode!);
         return null;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quran_online/utils/drawable.dart';
 
 class AuthenticationPageBackground extends CustomPainter{
   Color color;

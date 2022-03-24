@@ -1,7 +1,5 @@
 
 
-
-
 class UserModel{
   late String firstName,lastName,email,mobile;
 

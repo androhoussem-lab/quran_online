@@ -20,8 +20,8 @@ class PaymentModel{
         mobile: jsonObject['telephone']);
     imageName = jsonObject['name_image'];
     deviceName = jsonObject['device_name'];
+    courseId = int.parse(jsonObject['formation_id'],);
     createdAt = jsonObject['created_at'];
-    courseId = int.parse(jsonObject['formation_id']);
   }
 
    Map<String, dynamic> toMap() {
