@@ -40,7 +40,7 @@ class CustomVideoItem extends StatelessWidget {
                         'video_title' : videoModel!.title!,
                         'video_description' : videoModel!.description!,
                         'video_url' : videoModel!.videoUrl!,
-                        //'video_documents' : videoModel!.documents,
+                        'video_documents' : videoModel!.documents,
                       });
                     },
                     icon: Icons.play_circle_outline,

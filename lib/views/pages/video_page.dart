@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_online/controllers/video_controller.dart';
 import 'package:quran_online/models/document_model.dart';
-import 'package:quran_online/views/dialogs/rating_dialog.dart';
 import 'package:quran_online/views/widgets/custom_Text_viewer.dart';
 import 'package:quran_online/views/widgets/custom_button.dart';
-import 'package:quran_online/views/widgets/custom_icon_button.dart';
+import 'package:quran_online/views/widgets/download_widget.dart';
 
 import '../widgets/custom_video_player.dart';
 
 class VideoPage extends StatelessWidget {
   VideoPage({Key? key}) : super(key: key);
-  final List<DocumentModel> documents = [];
-
   final VideoController _videoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-       _videoController.showReview(context);
+        _videoController.showReview(context);
         return true;
       },
       child: Scaffold(
@@ -89,36 +86,52 @@ class VideoPage extends StatelessWidget {
                   CustomTextViewer(text: Get.arguments['video_description']!),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                      itemCount: documents.length,
+                    child: (_videoController.documents == null || _videoController.documents!.isEmpty)
+                        ? ( Center(
+                            child: Text(
+                              'لا توجد مرفقات',
+                              style: TextStyle(fontFamily: 'Cairo' , color: Theme.of(context).primaryColor),
+                            ),
+                          ))
+                        : ListView.builder(
+                      itemCount: _videoController.documents!.length,
                       itemBuilder: (context, index) {
-                        return SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      documents[index].name!,
-                                      style: TextStyle(
-                                        fontFamily: 'cairo',
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                        color: Theme.of(context).primaryColor,
+                        return Obx(()=> GestureDetector(
+                          onTap: () {
+                            _videoController.downloadFile();
+                          },
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height *
+                                  0.1,
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        _videoController.documents![index].name!,
+                                        style: TextStyle(
+                                          fontFamily: 'cairo',
+                                          fontWeight: FontWeight.bold,
+                                          decoration:
+                                          TextDecoration.underline,
+                                          color: Theme.of(context)
+                                              .primaryColor,
+                                        ),
                                       ),
-                                    ),
-                                    CustomIconButton(
-                                        onTap: () {},
-                                        icon: Icons.arrow_circle_down,
-                                        size: 24,
-                                        color: Theme.of(context).primaryColor),
-                                  ],
+                                      DownloadWidget(
+                                          downloadState: _videoController
+                                              .downloadState.value,
+                                          progress: _videoController
+                                              .progress.value),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ));
+                              )),
+                        ));
                       },
                     ),
                   ),
@@ -126,8 +139,7 @@ class VideoPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
                             child: TextField(
@@ -136,7 +148,12 @@ class VideoPage extends StatelessWidget {
                               maxLength: 255,
                               maxLines: 20,
                               decoration: InputDecoration(
-                                label: Text('ملاحظاتي' , style: TextStyle(fontSize: 16 , color: Theme.of(context).primaryColor),),
+                                label: Text(
+                                  'ملاحظاتي',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context).primaryColor),
+                                ),
                                 labelStyle: TextStyle(
                                     letterSpacing: 1.5,
                                     fontFamily: 'cairo',
@@ -145,15 +162,17 @@ class VideoPage extends StatelessWidget {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
-                                      color:Theme.of(context).primaryColor),
+                                      color: Theme.of(context).primaryColor),
                                 ),
                               ),
                             ),
                           ),
-                          CustomButton(onPressed: (){
-                            _videoController.addNote(context);
-                          }, text: 'حفظ', color: Theme.of(context).primaryColor)
-
+                          CustomButton(
+                              onPressed: () {
+                                _videoController.addNote(context);
+                              },
+                              text: 'حفظ',
+                              color: Theme.of(context).primaryColor)
                         ],
                       )),
                 ],

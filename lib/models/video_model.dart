@@ -20,7 +20,8 @@ class VideoModel{
     description = jsonObject['description'];
     time = jsonObject['duration_video'];
     videoUrl = jsonObject['link'];
-    documents = [];
+    documents = _getDocuments(jsonObject['docuemnt']);
+    print(documents);
   }
 
 
@@ -33,6 +34,18 @@ class VideoModel{
       'video_url' : videoUrl,
       'documents' : documents!.map((document) => DocumentModel.instance().toMap()).toList()
     };
+  }
+  
+  
+  List<DocumentModel> _getDocuments(List<dynamic> jsonDocuments){
+    List<DocumentModel> documents = [];
+    if(jsonDocuments.isNotEmpty){
+      for(var document in jsonDocuments){
+        documents.add(DocumentModel.fromJson(document));
+        return documents;
+      }
+    }
+    return documents;
   }
 
 }

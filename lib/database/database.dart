@@ -10,6 +10,7 @@ class DataBase{
     await GetStorage.init('account_data');
     await GetStorage.init('payment_data');
     await GetStorage.init('account_data');
+    await GetStorage.init('document_data');
     await GetStorage.init('app_note');
 
   }

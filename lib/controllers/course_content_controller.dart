@@ -9,6 +9,7 @@ class CourseContentController extends GetxController {
   RxBool loading = false.obs;
   final ApiServices _apiServices = ApiServices.instance;
   int courseID = int.parse(Get.arguments['course_id']);
+
   @override
   void onInit() {
     _fetchVideosByCourseId(courseID);

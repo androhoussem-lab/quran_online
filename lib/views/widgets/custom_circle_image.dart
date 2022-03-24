@@ -1,6 +1,6 @@
-import 'dart:ui';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CustomCircleImage extends StatelessWidget {
   final double? width;
@@ -20,61 +20,69 @@ class CustomCircleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width!,
-      height: height!,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Theme.of(context).primaryColor, width: 4),
+    return CachedNetworkImage(
+      imageUrl: imagePath!,
+      imageBuilder: (context, imageProvider) => Container(
+        width: width!,
+        height: height!,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Theme.of(context).primaryColor, width: 5),
+          image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(opacity!), BlendMode.darken),
+              image: imageProvider,
+              fit: BoxFit.cover),
+        ),
       ),
-      child: _buildImage(imagePath!),
+      placeholder: (context, url) =>  _buildPlaceHolder(context),
+      errorWidget: (context, url, error) => _buildErrorWidget(context),
     );
   }
 
-  Widget _buildImage(String imagePath) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(180),
-      child: ImageFiltered(
-        imageFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.darken),
-        child: Image.network(
-          imagePath,
+  Widget _buildPlaceHolder(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
           width: width!,
           height: height!,
-          fit: BoxFit.fill,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            );
-          },
-          errorBuilder: (context, object, stacktrace) => _buildErrorWidget(context),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade600,
+            shape: BoxShape.circle,
+            border: Border.all(color: Theme.of(context).primaryColor, width: 5),
+          ),
         ),
-      ),
+         Icon(
+          Icons.image,
+          size: 80,
+          color: Colors.white.withOpacity(0.3),
+        ),
+        SpinKitCircle(color: Theme.of(context).primaryColor,),
+      ],
     );
   }
 
   Widget _buildErrorWidget(BuildContext context) {
-    return Container(
-      width: width!,
-      height: height!,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        shape: BoxShape.circle,
-        border: Border.all(color: Theme.of(context).primaryColor, width: 5),
-        image:  DecorationImage(
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(opacity!), BlendMode.darken),
-          image: const ExactAssetImage('assets/images/quran_background.jpg'),
-          fit: BoxFit.cover
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: width!,
+          height: height!,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Theme.of(context).primaryColor, width: 5),
+            image: DecorationImage(
+                image:
+                    const ExactAssetImage('assets/images/quran_background.jpg'),
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(opacity!), BlendMode.darken),
+                fit: BoxFit.cover),
+          ),
         ),
-      ),
+        const Icon(Icons.error),
+      ],
     );
   }
 }

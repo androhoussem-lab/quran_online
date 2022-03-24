@@ -18,11 +18,10 @@ class CourseDetailController extends GetxController {
     Map<String, dynamic>? _paymentData = await _getPaymentFromStorage(courseId);
 
     if (_paymentData == null) {
-      Get.toNamed('/payment_page' , arguments: {
+      Get.offNamed('/payment_page' , arguments: {
         'course_id':courseId,
       });
     } else {
-      print(_paymentData);
       showConfirmationDialog(
           context: context,
           title: 'طلب الإشتراك',

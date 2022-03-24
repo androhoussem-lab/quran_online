@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl/intl.dart';
 import 'package:quran_online/utils/date_time_utils.dart';
 import '../services/api_services.dart';
 
@@ -59,7 +58,7 @@ class CoursesController extends GetxController{
     }else{
       var subscriptionData = json.decode(jsonFromDatabase);
       var expireDate = subscriptionData['expire_date'];
-      if(_dateTimeUtils.getDaysBetween(expireDate) < 0){
+      if(_dateTimeUtils.getDaysBetween(expireDate) <= 0){
         return true;
       }else{
         return false;

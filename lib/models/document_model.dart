@@ -10,8 +10,8 @@ class DocumentModel{
 
    DocumentModel.fromJson(Map<String,dynamic> jsonObject){
      id = jsonObject['id'];
-     name = jsonObject['name'];
-     documentUrl = jsonObject['document_url'];
+     name = jsonObject['name_pdf'];
+     documentUrl = jsonObject['link_pdf'];
    }
 
    Map<String, dynamic> toMap() {
