@@ -21,7 +21,6 @@ class VideoModel{
     time = jsonObject['duration_video'];
     videoUrl = jsonObject['link'];
     documents = _getDocuments(jsonObject['docuemnt']);
-    print(documents);
   }
 
 

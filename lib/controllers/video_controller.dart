@@ -111,4 +111,10 @@ class VideoController extends GetxController
 
     return path;
   }
+
+  sendReview(int stars , String review , String code , ){
+    Map<String,dynamic> reviewData = {
+
+    };
+  }
 }

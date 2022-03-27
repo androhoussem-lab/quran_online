@@ -106,8 +106,9 @@ class ApiServices {
     try {
       Response response = await _dio.get('formations');
       if (response.statusCode == 200 || response.statusCode == 201) {
+
         List<CourseModel> courses = [];
-        for (var course in response.data) {
+        for (var course in response.data['data']) {
           courses.add(CourseModel.fromJson(course));
         }
         return courses;

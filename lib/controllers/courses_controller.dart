@@ -68,8 +68,6 @@ class CoursesController extends GetxController{
   Future<bool>_checkCode()async{
 
     var jsonFromDatabase = await subscriptionBox.read('subscription_${courses[index].id!}_data');
-    print(jsonFromDatabase);
-
     if(jsonFromDatabase == null){
       return false;
     }else{

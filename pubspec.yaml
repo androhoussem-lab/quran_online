@@ -50,7 +50,8 @@ dependencies:
   intl: ^0.17.0
   cached_network_image: ^3.2.0
   open_file: ^3.2.1
-
+  rename: ^2.0.1
+  flutter_windowmanager: ^0.2.0
 
 
 dev_dependencies:

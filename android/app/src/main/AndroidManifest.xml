@@ -2,7 +2,7 @@
     package="com.quran_online.quran_online">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="quran_online"
+        android:label="Quran Online"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

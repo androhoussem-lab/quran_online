@@ -17,8 +17,8 @@ class DownloadService {
     try {
       _contentController.downloadState('onDownload');
       _dio.download(url, savePath, onReceiveProgress: (rcv, total) {
-        print(
-            'received: ${rcv.toStringAsFixed(0)} out of total: ${total.toStringAsFixed(0)}');
+        // print(
+        //     'received: ${rcv.toStringAsFixed(0)} out of total: ${total.toStringAsFixed(0)}');
         _contentController.progress(double.parse(((rcv / total) * 100).toStringAsFixed(0)));
       }).then((value){
         _contentController.progress(100);
