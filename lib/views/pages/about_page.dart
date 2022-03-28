@@ -52,40 +52,6 @@ class AboutPage extends StatelessWidget {
                     style: TextStyle(fontFamily: 'cairo' , fontSize: 20 , fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(
-                  'برمجة وتصميم :',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: 'cairo' , fontSize: 20),
-                ),
-                Text(
-                  'ابن الصغير حسام الدين',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: 'cairo' , fontSize: 20),
-                ),
-                GestureDetector(
-                  onTap: (){
-                    launcher.launch('mailto:houssem.macbook@gmail.com');
-                  },
-                  child: Text(
-                    'houssem.macbook@gmail.com',
-                    style: TextStyle(fontFamily: 'cairo' , fontSize: 20 , fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Text(
-                  'عماد الدين بن صوط',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: 'cairo' , fontSize: 20),
-                ),
-                GestureDetector(
-                  onTap: (){
-                    launcher.launch('mailto:imadebensotmi2015@gmail.com');
-                  },
-                  child: Text(
-                    'imadebensotmi2015@gmail.com',
-                    style: TextStyle(fontFamily: 'cairo' , fontSize: 20 , fontWeight: FontWeight.bold),
-                  ),
-                ),
-
               ],
             ),
           ),

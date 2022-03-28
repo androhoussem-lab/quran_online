@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:quran_online/consts/routes.dart';
 import 'package:quran_online/database/database.dart';
 import 'package:quran_online/utils/initial_binding.dart';
 import 'package:quran_online/utils/custom_theme.dart';
 import 'package:quran_online/views/pages/authentication/authentication_page.dart';
+import 'package:quran_online/views/pages/utils/onboarding_page.dart';
 
-
-
-void main() async{
+void main() async {
   await DataBase.init();
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   runApp(const MyApp());
@@ -25,13 +25,22 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar', 'dz'),
       theme: CustomTheme.myTheme,
       initialBinding: InitialBinding(),
       getPages: pages,
-      home: const AuthenticationPage(),
+      home: _checkSeen(),
     );
+  }
+
+  Widget _checkSeen() {
+    var seen = GetStorage('app_data').read('seen');
+    if (seen == null) {
+      return OnBoardingPage();
+    }
+    return AuthenticationPage();
   }
 }

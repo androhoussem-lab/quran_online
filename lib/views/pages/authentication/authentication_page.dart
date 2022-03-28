@@ -25,14 +25,13 @@ class AuthenticationPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8 , right: 8),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Transform.translate(
-                    offset: const Offset(1.0, -200),
-                    child: const Icon(Icons.book_outlined,
-                        size: 64, color: Colors.white)),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.15,),
+                Image.asset('assets/images/app_icon_white.png' , width: 100 , height: 100,),
+                SizedBox(height:  MediaQuery.of(context).size.height * 0.15,),
                 CustomButton(
                     onPressed: () {
                       Get.toNamed('/home');

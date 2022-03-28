@@ -6,7 +6,8 @@ import 'package:video_player/video_player.dart';
 class CustomVideoPlayerController extends GetxController {
   VideoPlayerController? _videoPlayerController;
   ChewieController? chewieController;
-  String videoUrl = Get.arguments['video_url'];
+  String videoUrl = Get.arguments!=null?Get.arguments['video_url']:'';
+
 
   @override
   void onInit() {

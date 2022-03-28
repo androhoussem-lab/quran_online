@@ -23,6 +23,8 @@ class ApiServices {
     'content_type': 'multipart/form-data',
   };
 
+
+  //init dio
   void init() {
     _dio = Dio(BaseOptions(
         baseUrl: BASE_URL,
@@ -31,6 +33,7 @@ class ApiServices {
         receiveTimeout: 10000));
   }
 
+  //make payment
   Future<PaymentModel?> makePayment(Map<String, dynamic> paymentData) async {
     FormData formData = FormData.fromMap(paymentData);
     try {
@@ -133,6 +136,9 @@ class ApiServices {
     return null;
   }
 
+
+
+  //get list of videos by course ID
   Future<List<dynamic>?> getVideosByCourseId(int courseId) async {
     try {
       Response response = await _dio.get('videos_by_idFormations/$courseId');
@@ -164,6 +170,48 @@ class ApiServices {
     return null;
   }
 
+
+  //Send review
+
+  Future<Map<String,dynamic>?> sendReview(Map<String,dynamic> body)async{
+    FormData formData = FormData.fromMap(body);
+    try {
+      Response response = await _dio.post(
+        'reviews',
+        data: formData,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) => true,
+        ),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if(response.data['success']){
+          return response.data;
+        }
+      } else {
+        throwExceptionByStatusCode(response.statusCode!);
+        return null;
+      }
+    } on DioError catch (e) {
+
+      if (DioErrorType.receiveTimeout == e.type ||
+          DioErrorType.connectTimeout == e.type) {
+        throw Exception(
+            "يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
+      } else if (DioErrorType.other == e.type) {
+        if (e.message.contains('SocketException')) {
+          throw Exception('يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى');
+        }
+      } else {
+        throw Exception("يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
+      }
+    }
+    return null;
+  }
+
+
+
+  //checking and throw exception by status code
   void throwExceptionByStatusCode(int statusCode) {
     switch (statusCode) {
       case 300:

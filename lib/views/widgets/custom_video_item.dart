@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 class CustomVideoItem extends StatelessWidget {
   final int? index;
   final VideoModel? videoModel;
+  final Function()? onTab;
 
   const CustomVideoItem(
-      {Key? key, required this.index, required this.videoModel})
+      {Key? key, required this.index, required this.videoModel , required this.onTab})
       : super(key: key);
 
   @override
@@ -34,15 +35,7 @@ class CustomVideoItem extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 CustomIconButton(
-                    onTap: () {
-                      Get.toNamed('/video_page',arguments: {
-                        'video_id' : videoModel!.id!,
-                        'video_title' : videoModel!.title!,
-                        'video_description' : videoModel!.description!,
-                        'video_url' : videoModel!.videoUrl!,
-                        'video_documents' : videoModel!.documents,
-                      });
-                    },
+                    onTap: onTab,
                     icon: Icons.play_circle_outline,
                     size: 64,
                     color: Colors.white)

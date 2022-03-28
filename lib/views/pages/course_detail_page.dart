@@ -22,7 +22,7 @@ class CourseDetailPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          CustomVideoPlayer(videoUrl: Get.arguments['video_url']),
+          CustomVideoPlayer(),
           Expanded(
             flex: 1,
             child: Padding(

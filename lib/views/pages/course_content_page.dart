@@ -34,6 +34,15 @@ class CourseContentPage extends StatelessWidget {
               itemBuilder: (context, index) => CustomVideoItem(
                     index: index,
                     videoModel: _courseContentController.videosList[index],
+                onTab: (){
+                  Get.toNamed('/video_page',arguments: {
+                    'video_id' : _courseContentController.videosList[index].id!,
+                    'video_title' : _courseContentController.videosList[index].title!,
+                    'video_description' : _courseContentController.videosList[index].description!,
+                    'video_url' : _courseContentController.videosList[index].videoUrl!,
+                    'video_documents' : _courseContentController.videosList[index].documents,
+                  });
+                },
                   ));
         }),
       ),

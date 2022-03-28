@@ -48,8 +48,9 @@ class LoginController extends GetxController {
            if(value != null && value.containsKey('token')){
              var expireDate = value['expire_date'];
              if(_dateTimeUtils.getDaysBetween(expireDate) < 0){
-               Get.back();
+               value['code'] = codeController!.text;
                await subscriptionBox.write('subscription_${value['formation_id']}_data', json.encode(value));
+               Get.back();
                Fluttertoast.showToast(
                    msg: 'لقد قمت بالتسجيل في دورة ${value['formation']['name']} بنجاح',
                    toastLength: Toast.LENGTH_LONG,
@@ -115,5 +116,7 @@ class LoginController extends GetxController {
     }
     return deviceName;
   }
+
+
 
 }

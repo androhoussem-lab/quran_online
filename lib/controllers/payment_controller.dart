@@ -161,4 +161,5 @@ class PaymentController extends GetxController {
     var paymentToJson = json.encode(paymentModel.toMap());
     await paymentBox.write('payment_${paymentModel.courseId}', paymentToJson);
   }
+
 }
