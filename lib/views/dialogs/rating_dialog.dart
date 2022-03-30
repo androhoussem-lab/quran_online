@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:in_app_review/in_app_review.dart';
 import 'package:quran_online/controllers/video_controller.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:get/get.dart';
@@ -42,7 +41,7 @@ VideoController _videoController = Get.find();
             color: Theme.of(context).primaryColor),
         commentHint: 'أضف تعليق',
         onCancelled: () => print('إلغاء'),
-        onSubmitted: (response) {
+        onSubmitted: (response) async{
           if(response.comment.isEmpty){
             Fluttertoast.showToast(
                 msg: 'يرجى كتابة رأيكم لأنه مهم بالنسبة لنا',

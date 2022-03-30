@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -18,10 +19,26 @@ class CustomVideoPlayerController extends GetxController {
             playedColor: Theme.of(Get.context!).primaryColor,
             bufferedColor: Theme.of(Get.context!).primaryColor.withOpacity(0.2),
             handleColor: Theme.of(Get.context!).primaryColor,
+          backgroundColor: Colors.grey.shade900
         ),
+        cupertinoProgressColors: ChewieProgressColors(
+            playedColor: Theme.of(Get.context!).primaryColor,
+            bufferedColor: Theme.of(Get.context!).primaryColor.withOpacity(0.2),
+            handleColor: Theme.of(Get.context!).primaryColor,
+            backgroundColor: Colors.grey.shade900
+        ),
+        deviceOrientationsAfterFullScreen: [
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown,
+        ],
+        deviceOrientationsOnEnterFullScreen: [
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight
+        ],
         videoPlayerController: _videoPlayerController!,
         autoPlay: false,
         aspectRatio: 16 / 9 ,
+        allowFullScreen: true,
         errorBuilder: (context, errorMessage) {
         return  Center(
           child:  Text(
@@ -33,6 +50,7 @@ class CustomVideoPlayerController extends GetxController {
     );
     super.onInit();
   }
+
   @override
   void onClose() {
     _videoPlayerController!.dispose();

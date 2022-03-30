@@ -1,10 +1,12 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:quran_online/consts/api_end_points.dart';
 import 'package:quran_online/models/course_model.dart';
 import 'package:quran_online/models/payment_model.dart';
 import 'package:quran_online/models/video_model.dart';
+import 'package:quran_online/utils/interceptors/dio_connectivity_request_retryer.dart';
+import 'package:quran_online/utils/interceptors/retry_interceptor.dart';
 import 'exceptions.dart';
-
 
 late Dio _dio;
 
@@ -23,14 +25,21 @@ class ApiServices {
     'content_type': 'multipart/form-data',
   };
 
-
   //init dio
   void init() {
     _dio = Dio(BaseOptions(
         baseUrl: BASE_URL,
         headers: _headers,
-        connectTimeout: 10000,
-        receiveTimeout: 10000));
+        connectTimeout: 5000,
+        receiveTimeout: 5000));
+    _dio.interceptors.add(
+      RetryOnConnectionChangeInterceptor(
+        requestRetry: DioConnectivityRequestRetryer(
+          dio: _dio,
+          connectivity: Connectivity(),
+        ),
+      ),
+    );
   }
 
   //make payment
@@ -46,7 +55,7 @@ class ApiServices {
         ),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if(response.data['success']){
+        if (response.data['success']) {
           return PaymentModel.fromJson(response.data['paiment']);
         }
       } else {
@@ -54,11 +63,9 @@ class ApiServices {
         return null;
       }
     } on DioError catch (e) {
-
       if (DioErrorType.receiveTimeout == e.type ||
           DioErrorType.connectTimeout == e.type) {
-        throw Exception(
-            "يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
+        throw Exception("يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
       } else if (DioErrorType.other == e.type) {
         if (e.message.contains('SocketException')) {
           throw Exception('يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى');
@@ -89,11 +96,9 @@ class ApiServices {
         return null;
       }
     } on DioError catch (e) {
-
       if (DioErrorType.receiveTimeout == e.type ||
           DioErrorType.connectTimeout == e.type) {
-        throw Exception(
-            "يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
+        throw Exception("يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
       } else if (DioErrorType.other == e.type) {
         if (e.message.contains('SocketException')) {
           throw Exception('يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى');
@@ -137,7 +142,6 @@ class ApiServices {
   }
 
 
-
   //get list of videos by course ID
   Future<List<dynamic>?> getVideosByCourseId(int courseId) async {
     try {
@@ -153,12 +157,9 @@ class ApiServices {
         return null;
       }
     } on DioError catch (e) {
-
       if (DioErrorType.receiveTimeout == e.type ||
           DioErrorType.connectTimeout == e.type) {
-        throw Exception(
-            "يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
-
+        throw Exception("يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
       } else if (DioErrorType.other == e.type) {
         if (e.message.contains('SocketException')) {
           throw Exception('يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى');
@@ -170,10 +171,9 @@ class ApiServices {
     return null;
   }
 
-
   //Send review
 
-  Future<Map<String,dynamic>?> sendReview(Map<String,dynamic> body)async{
+  Future<Map<String, dynamic>?> sendReview(Map<String, dynamic> body) async {
     FormData formData = FormData.fromMap(body);
     try {
       Response response = await _dio.post(
@@ -185,7 +185,7 @@ class ApiServices {
         ),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if(response.data['success']){
+        if (response.data['success']) {
           return response.data;
         }
       } else {
@@ -193,11 +193,9 @@ class ApiServices {
         return null;
       }
     } on DioError catch (e) {
-
       if (DioErrorType.receiveTimeout == e.type ||
           DioErrorType.connectTimeout == e.type) {
-        throw Exception(
-            "يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
+        throw Exception("يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى");
       } else if (DioErrorType.other == e.type) {
         if (e.message.contains('SocketException')) {
           throw Exception('يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى');
@@ -208,8 +206,6 @@ class ApiServices {
     }
     return null;
   }
-
-
 
   //checking and throw exception by status code
   void throwExceptionByStatusCode(int statusCode) {

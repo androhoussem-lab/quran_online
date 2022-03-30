@@ -90,6 +90,15 @@ class LoginController extends GetxController {
                  textColor: Colors.white,
                  fontSize: 16.0);
            }
+         }).onError((error, stackTrace) {
+           Fluttertoast.showToast(
+               msg: error.toString(),
+               toastLength: Toast.LENGTH_LONG,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIosWeb: 1,
+               backgroundColor: Theme.of(Get.context!).primaryColor,
+               textColor: Colors.white,
+               fontSize: 16.0);
          });
        }else{
          Fluttertoast.showToast(

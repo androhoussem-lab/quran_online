@@ -18,7 +18,7 @@ class OnBoardingPage extends StatelessWidget {
           SizedBox.expand(
               child: VideoPlayer( _onBoardingController.videoPlayerController!)),
           Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 16 , horizontal: 8),
               child: CustomButton(
                 onPressed: () {
                   _onBoardingController.saveSeenAndGoToNextPage();
@@ -30,6 +30,6 @@ class OnBoardingPage extends StatelessWidget {
       ),
     );
   }
-  
-  
+
+
 }

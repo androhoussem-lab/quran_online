@@ -46,7 +46,6 @@ class OnBoardingController extends GetxController{
 
 
   saveSeenAndGoToNextPage()async{
-    await appBox.write('seen', true);
     Get.offNamed('/authentication_page');
   }
 

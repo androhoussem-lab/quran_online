@@ -53,7 +53,7 @@ class CoursePage extends StatelessWidget {
                   SmoothPageIndicator(
                       controller: _courseController.pageController!,
                       // PageController
-                      count: _courseController.courses.length,
+                      count: (_courseController.courses.isEmpty)?1:_courseController.courses.length,
                       effect: WormEffect(
                           activeDotColor: Theme
                               .of(context)

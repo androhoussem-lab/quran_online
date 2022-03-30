@@ -86,7 +86,7 @@ class VideoController extends GetxController
   showReview(BuildContext context) async {
     var reviewWasSeen = await appBox.read('review_${videoId}_was_seen');
     if (reviewWasSeen == null) {
-      await appBox.write('review_${videoId}_was_seen', true);
+
       Get.dialog(
           showRatingDialog(context, 'قرأن أون لاين',
               'برجاء وضع تقييمكم وأي تعليقات على الدرس'),
@@ -150,9 +150,10 @@ class VideoController extends GetxController
       'video_id': videoId.toString()
     };
 
-    _apiServices.sendReview(reviewData).then((value) {
+    _apiServices.sendReview(reviewData).then((value) async{
       if (value != null && value['success'] == true) {
         Get.back();
+        await appBox.write('review_${videoId}_was_seen', true);
         Fluttertoast.showToast(
             msg: 'شكرا لكم على أرائكم',
             toastLength: Toast.LENGTH_LONG,

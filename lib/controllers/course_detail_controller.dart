@@ -7,6 +7,13 @@ import 'package:quran_online/views/dialogs/confirmation_alert_dialog.dart';
 
 class CourseDetailController extends GetxController {
   final GetStorage _paymentBox = GetStorage('payment_data');
+  final courseId = Get.arguments['course_id'];
+  final courseName = Get.arguments['course_name'];
+  final videoUrl = Get.arguments['video_url'];
+  final courseDescription = Get.arguments['course_description'];
+  final courseTeacher = Get.arguments['course_teacher'];
+  final coursePrice = Get.arguments['course_price'];
+  final userIsSubscribed = Get.arguments['user_is_subscribed'];
 
   @override
   void onInit() async {

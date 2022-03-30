@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran_online/models/video_model.dart';
 import 'package:quran_online/views/widgets/custom_icon_button.dart';
-import 'package:get/get.dart';
 
 class CustomVideoItem extends StatelessWidget {
   final int? index;

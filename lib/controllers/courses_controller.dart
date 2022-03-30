@@ -15,7 +15,7 @@ class CoursesController extends GetxController{
   final ApiServices _apiServices = ApiServices.instance;
   final GetStorage subscriptionBox = GetStorage('account_data');
   final DateTimeUtils _dateTimeUtils = DateTimeUtils();
-
+  ConnectivityUtil? _connectivityUtil;
   PageController? pageController;
   int _index = 0;
 
@@ -35,23 +35,15 @@ class CoursesController extends GetxController{
         initialPage: 0,
         viewportFraction: 1
     );
+    _connectivityUtil = ConnectivityUtil();
     _apiServices.init();
     _fetchCourses();
     super.onInit();
   }
 
   _fetchCourses()async{
-    await ConnectivityUtil.checkDeviceIsConnected().then((value){
-      if(value){
-        loading(true);
-        _apiServices.getAllCourses().then((value){
-          if(value != null){
-            courses(value);
-            loading(false);
-          }
-        }).onError((error, stackTrace) => null);
-      }else{
-        loading(false);
+    ConnectivityUtil.checkDeviceIsConnected().then((value){
+      if(!value){
         Fluttertoast.showToast(
             msg: 'لا يوجد إتصال بالأنتورنات',
             toastLength: Toast.LENGTH_LONG,
@@ -62,7 +54,15 @@ class CoursesController extends GetxController{
             fontSize: 16.0);
       }
     });
-
+    loading(true);
+        _apiServices.getAllCourses().then((value){
+          if(value != null){
+            courses(value);
+            loading(false);
+          }
+        }).catchError((error, stackTrace){
+          print(error.runtimeType);
+        });
   }
 
   Future<bool>_checkCode()async{
